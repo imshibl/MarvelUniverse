@@ -46,6 +46,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyHolder> {
         String moreDetails = characterModelList.get(position).getMoreDetails();
         try {
             holder.textView.setText(characterName);
+
             Glide.with(context)
                     .load(image)
                     .into(holder.imageView);

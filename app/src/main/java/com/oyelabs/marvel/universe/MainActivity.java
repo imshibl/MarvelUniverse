@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         networking.getData(page, pageLimit);
 
+        //pagination
         nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
                 if(!isSearching){

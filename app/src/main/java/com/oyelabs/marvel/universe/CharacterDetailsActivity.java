@@ -47,7 +47,7 @@ public class CharacterDetailsActivity extends AppCompatActivity {
                    .into(imageView);
            character_name.setText(name);
            if(description.equals("")){
-               about.setText("No data available");
+               about.setText("Not Available");
            }else{
                about.setText(description);
            }

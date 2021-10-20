@@ -1,6 +1,7 @@
 package com.oyelabs.marvel.universe.networking;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -30,6 +31,9 @@ public class ApiNetworking {
     ProgressBar progressBar;
 
 
+    String HASH = "e86e35bf2c79ad52515c1a489b0b0196";
+    String API_KEY = "6c48c7611a465b1bd13b4bf319b361b0";
+    String BASE_URL = "https://gateway.marvel.com/v1/public/characters?apikey=" + API_KEY + "&hash=" + HASH + "&ts=1634692299";
     String url;
 
     public ApiNetworking(Context mContext, List<CharacterModel> characterModelList, MainAdapter mainAdapter, RecyclerView recyclerView, ProgressBar progressBar) {
@@ -47,10 +51,6 @@ public class ApiNetworking {
             return;
         }
 
-        String HASH = "e86e35bf2c79ad52515c1a489b0b0196";
-        String API_KEY = "6c48c7611a465b1bd13b4bf319b361b0";
-
-        String BASE_URL = "https://gateway.marvel.com/v1/public/characters?apikey=" + API_KEY + "&hash=" + HASH + "&ts=1634692299";
 
         url = BASE_URL + "&limit=10&offset=" + pageNum;
 
@@ -75,7 +75,7 @@ public class ApiNetworking {
 
                         String mediumImage = imageLink + "/portrait_medium." + imageExtension;
 
-
+                        Log.d("myapp", mediumImage);
 
 
                         CharacterModel model = new CharacterModel(strId, name, description, mediumImage, moreDetailsUrl);
@@ -105,27 +105,21 @@ public class ApiNetworking {
 
     public void getSearchData(String name) {
 
-        if(name.equals("")){
+        if (name.equals("")) {
             name = "a";
         }
 
 
         characterModelList.clear();
-        String HASH = "e86e35bf2c79ad52515c1a489b0b0196";
-        String API_KEY = "6c48c7611a465b1bd13b4bf319b361b0";
 
-        String BASE_URL = "https://gateway.marvel.com/v1/public/characters?apikey=" + API_KEY + "&hash=" + HASH + "&ts=1634692299";
 
-        try{
+        try {
             url = BASE_URL + "&nameStartsWith=" + name;
 
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -146,9 +140,7 @@ public class ApiNetworking {
                         String imageExtension = jsonObject.getJSONObject("thumbnail").getString("extension");
                         String moreDetailsUrl = jsonObject.getJSONArray("urls").getJSONObject(0).getString("url");
 
-                        String mediumImage = imageLink + "/portrait_xlarge." + imageExtension;
-
-
+                        String mediumImage = imageLink + "/portrait_medium." + imageExtension;
 
 
                         CharacterModel model = new CharacterModel(strId, name, description, mediumImage, moreDetailsUrl);
